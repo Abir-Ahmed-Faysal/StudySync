@@ -4,7 +4,7 @@ import { NavLink } from "react-router";
 
 export default function Navbar() {
   return (
-    <header className="sticky top-0 z-20 bg-white/80 backdrop-blur border-b">
+    <header className="sticky md:hidden  top-0 z-20 bg-white/80 backdrop-blur border-b">
       <div className="navbar px-4 max-w-6xl mx-auto">
         {/* Left side */}
         <div className="flex items-center gap-2 font-semibold">
