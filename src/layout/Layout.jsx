@@ -9,7 +9,7 @@ const Layout = () => {
       <div>
         <div className="text-4xl font-bold">StudySync</div>
         <Navbar />
-        <div className="flex mt-5 ">
+        <div className="flex mt-5 gap-5">
           <Sidebar></Sidebar>
           <Outlet></Outlet>
         </div>
