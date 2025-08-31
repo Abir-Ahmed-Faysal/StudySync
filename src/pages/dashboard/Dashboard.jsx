@@ -1,59 +1,55 @@
 import React from "react";
-import Event from "./components/event";
+import Event from "./components/Event";
 import TodaysTask from "./components/TodaysTask";
 import UpcomingTask from "./components/UpcomingTask";
 import PomodoroClock from "./components/PromodroClock";
 
 const Dashboard = () => {
   return (
-    <div >
-      <div >
-        <div className="grid h-20   grid-cols-12 gap-4 mb-4">
-          <div className="col-span-7  space-y-4">
-            <div className="bg-white p-4  rounded-lg">
-              <div className="text-white bg-blue-200 p-8 rounded-lg ">
-                <h2 className="text-4xl font-bold">Good Evening</h2>
-                <p>You have 1 task due today!</p>
-              </div>
+    <div className="min-h-screen bg-gray-100 ">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        {/* Left Section */}
+        <div className="lg:col-span-8 space-y-6">
+          <div className="bg-white rounded-2xl shadow-md overflow-hidden">
+            <div className="bg-gradient-to-r from-blue-400 to-blue-600 text-white p-8">
+              <h2 className="text-3xl md:text-4xl font-bold">Good Evening</h2>
+              <p className="mt-2 text-lg">You have 1 task due today!</p>
             </div>
-
-            <Event></Event>
-            <TodaysTask></TodaysTask>
-            <UpcomingTask></UpcomingTask>
           </div>
 
-          <div className="space-y-4 col-span-5">
-            <div className="bg-white p-4 rounded-lg gap-2">
-              <h1 className="text-xl ">today 31/8/24</h1>
-              {/* single event */}
-              <div>
-                <div className="flex gap-4 items-center ">
-                  <div>
-                    <h3>2.30pm</h3>
-                    <h3>3.00pm</h3>
-                  </div>
-                  <div className="border-r-3  border-gray-300"></div>
-                  <div className="bg-blue-200 w-full rounded-md p-2">
-                    <p>English</p>
-                    <p className="strong">Science</p>
-                  </div>
-                </div>
+          <Event />
+          <TodaysTask />
+          <UpcomingTask />
+        </div>
+
+        {/* Right Section */}
+        <div className="lg:col-span-4 space-y-6">
+          {/* Today’s Event */}
+          <div className="bg-white rounded-2xl shadow-md p-6">
+            <h1 className="text-xl font-semibold text-gray-800 mb-4">
+              Today <span className="text-gray-500">31/08/24</span>
+            </h1>
+            <div className="flex items-center gap-4">
+              <div className="text-gray-600 text-sm">
+                <h3>2:30 PM</h3>
+                <h3>3:00 PM</h3>
+              </div>
+              <div className="border-l-2 border-gray-300 h-full"></div>
+              <div className="bg-blue-100 flex-1 rounded-lg p-3">
+                <p className="font-medium">English</p>
+                <p className="font-semibold text-gray-700">Science</p>
               </div>
             </div>
-            {/* Assignment */}
-
-            <div className="bg-white p-4 rounded-lg">
-              <h3 className="text-xl">Upcoming Assignment</h3>
-              <div>
-                <h6>No Assignment today</h6>
-              </div>
-
-             
-             
-            </div>
-             {/* promodro clock  */}
-              <PomodoroClock></PomodoroClock> 
           </div>
+
+          {/* Assignment */}
+          <div className="bg-white rounded-2xl shadow-md p-6">
+            <h3 className="text-lg font-semibold mb-2">Upcoming Assignment</h3>
+            <p className="text-gray-500">No Assignment today</p>
+          </div>
+
+          {/* Pomodoro */}
+          <PomodoroClock />
         </div>
       </div>
     </div>

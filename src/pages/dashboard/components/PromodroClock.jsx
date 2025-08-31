@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
 
 const PomodoroClock = () => {
-  // Dummy backend data
   const backendData = {
-    pomodoro: 25 * 60, // 25 minutes
-    shortBreak: 5 * 60, // 5 minutes
-    longBreak: 15 * 60, // 15 minutes
+    pomodoro: 25 * 60,
+    shortBreak: 5 * 60,
+    longBreak: 15 * 60,
   };
 
   const [timeLeft, setTimeLeft] = useState(backendData.pomodoro);
   const [isRunning, setIsRunning] = useState(false);
-  const [mode, setMode] = useState("pomodoro"); 
+  const [mode, setMode] = useState("pomodoro");
   const [cycleCount, setCycleCount] = useState(0);
 
-  // Timer effect
   useEffect(() => {
     let timer;
     if (isRunning && timeLeft > 0) {
@@ -24,7 +22,6 @@ const PomodoroClock = () => {
     return () => clearInterval(timer);
   }, [isRunning, timeLeft]);
 
-  // Format time mm:ss
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -33,7 +30,6 @@ const PomodoroClock = () => {
       .padStart(2, "0")}`;
   };
 
-  // Switch between modes
   const handleModeSwitch = () => {
     if (mode === "pomodoro") {
       if (cycleCount === 3) {
@@ -52,11 +48,10 @@ const PomodoroClock = () => {
   };
 
   return (
-    <div className="flex text-white bg-blue-200 flex-col items-center justify-center rounded-lg p-4 gap-6">
-      <h1 className="text-3xl font-bold">Pomodoro Clock</h1>
+    <div className="flex flex-col items-center justify-center rounded-2xl shadow-md p-6 gap-6 bg-gradient-to-r from-blue-400 to-blue-600 text-white">
+      <h1 className="text-2xl font-bold">Pomodoro Clock</h1>
 
-      {/* Mode Title */}
-      <h2 className="text-xl font-semibold capitalize">
+      <h2 className="text-lg font-medium capitalize">
         {mode === "pomodoro"
           ? "Focus Time"
           : mode === "shortBreak"
@@ -64,15 +59,13 @@ const PomodoroClock = () => {
           : "Long Break"}
       </h2>
 
-      {/* Timer */}
-      <div className="text-6xl font-mono font-bold">
+      <div className="text-5xl md:text-6xl font-mono font-bold">
         {formatTime(timeLeft)}
       </div>
 
-      {/* Single Toggle Button */}
       <button
         onClick={() => setIsRunning((prev) => !prev)}
-        className={`px-4 py-1 rounded-full text-lg  bg-white text-black`}
+        className="px-6 py-2 rounded-full text-lg bg-white text-blue-600 font-semibold shadow-md hover:bg-gray-100 transition"
       >
         {isRunning ? "Pause" : "Start"}
       </button>
