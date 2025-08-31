@@ -10,7 +10,7 @@ const PomodoroClock = () => {
 
   const [timeLeft, setTimeLeft] = useState(backendData.pomodoro);
   const [isRunning, setIsRunning] = useState(false);
-  const [mode, setMode] = useState("pomodoro"); // "pomodoro" | "shortBreak" | "longBreak"
+  const [mode, setMode] = useState("pomodoro"); 
   const [cycleCount, setCycleCount] = useState(0);
 
   // Timer effect
@@ -36,7 +36,6 @@ const PomodoroClock = () => {
   // Switch between modes
   const handleModeSwitch = () => {
     if (mode === "pomodoro") {
-      // After 4 Pomodoros → long break
       if (cycleCount === 3) {
         setMode("longBreak");
         setTimeLeft(backendData.longBreak);
@@ -52,20 +51,12 @@ const PomodoroClock = () => {
     }
   };
 
-  // Reset
-  const resetTimer = () => {
-    setIsRunning(false);
-    setMode("pomodoro");
-    setTimeLeft(backendData.pomodoro);
-    setCycleCount(0);
-  };
-
   return (
-    <div className="flex bg-blue-200  flex-col items-center justify-center rounded-lg p-4 gap-6">
-      <h1 className="text-3xl font-bold text-gray-800">Pomodoro Clock</h1>
+    <div className="flex text-white bg-blue-200 flex-col items-center justify-center rounded-lg p-4 gap-6">
+      <h1 className="text-3xl font-bold">Pomodoro Clock</h1>
 
       {/* Mode Title */}
-      <h2 className="text-xl font-semibold capitalize text-gray-600">
+      <h2 className="text-xl font-semibold capitalize">
         {mode === "pomodoro"
           ? "Focus Time"
           : mode === "shortBreak"
@@ -74,34 +65,17 @@ const PomodoroClock = () => {
       </h2>
 
       {/* Timer */}
-      <div className="text-6xl font-mono font-bold text-red-500">
+      <div className="text-6xl font-mono font-bold">
         {formatTime(timeLeft)}
       </div>
 
-      {/* Buttons */}
-      <div className="flex gap-4">
-        {!isRunning ? (
-          <button
-            onClick={() => setIsRunning(true)}
-            className="px-4 py-2 rounded-lg bg-green-500 text-white hover:bg-green-600"
-          >
-            Start
-          </button>
-        ) : (
-          <button
-            onClick={() => setIsRunning(false)}
-            className="px-4 py-2 rounded-lg bg-yellow-500 text-white hover:bg-yellow-600"
-          >
-            Pause
-          </button>
-        )}
-        <button
-          onClick={resetTimer}
-          className="px-4 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600"
-        >
-          Reset
-        </button>
-      </div>
+      {/* Single Toggle Button */}
+      <button
+        onClick={() => setIsRunning((prev) => !prev)}
+        className={`px-4 py-1 rounded-full text-lg  bg-white text-black`}
+      >
+        {isRunning ? "Pause" : "Start"}
+      </button>
     </div>
   );
 };

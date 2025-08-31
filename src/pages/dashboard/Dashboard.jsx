@@ -6,10 +6,10 @@ import PomodoroClock from "./components/PromodroClock";
 
 const Dashboard = () => {
   return (
-    <div>
-      <div>
-        <div className="grid h-20   grid-cols-3 gap-4 mb-4">
-          <div className="col-span-2  space-y-4">
+    <div >
+      <div >
+        <div className="grid h-20   grid-cols-12 gap-4 mb-4">
+          <div className="col-span-7  space-y-4">
             <div className="bg-white p-4  rounded-lg">
               <div className="text-white bg-blue-200 p-8 rounded-lg ">
                 <h2 className="text-4xl font-bold">Good Evening</h2>
@@ -22,7 +22,7 @@ const Dashboard = () => {
             <UpcomingTask></UpcomingTask>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-4 col-span-5">
             <div className="bg-white p-4 rounded-lg gap-2">
               <h1 className="text-xl ">today 31/8/24</h1>
               {/* single event */}
