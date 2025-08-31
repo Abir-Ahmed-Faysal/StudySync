@@ -1,25 +1,33 @@
 import React from "react";
-
 import "../components/calender.css";
 import Calender from "./Calender";
 
 const Subject = () => {
   return (
-    <div className="  border border-gray-100 rounded-md ">
+    <div className="border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition p-0 overflow-hidden">
+      {/* Subject Banner */}
       <img
-        className="border-b border-gray-200"
+        className="w-full h-40 object-cover border-b"
         src="https://i.ibb.co.com/0RJkx1p9/cartoon-maths-elements-background-education-logo-vector.jpg"
-        alt=""
+        alt="Math subject banner"
       />
-      <div className="p-3">
-        <h1 className="text-2xl font-bold p-3">Math</h1>
-        <p className="p-1 rounded-full w-fit px-2 pr-4 bg-gray-200">
-          class Schedule
-        </p>
-        <div className="border-b w-1/3 my-4"></div>
+
+      {/* Card Content */}
+      <div className="p-4 space-y-4">
+        {/* Title & Tag */}
         <div>
-          <Calender></Calender>
+          <h1 className="text-2xl font-bold">Math</h1>
+          <p className="mt-2 inline-block bg-gray-200 text-gray-700 text-sm px-3 py-1 rounded-full">
+            Class Schedule
+          </p>
         </div>
+
+        {/* Calendar */}
+        <div className="border-t pt-4">
+          <Calender />
+        </div>
+
+       
       </div>
     </div>
   );

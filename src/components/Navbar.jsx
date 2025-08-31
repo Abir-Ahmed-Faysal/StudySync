@@ -4,7 +4,7 @@ import { useLocation } from "react-router";
 const Navbar = () => {
   const { pathname } = useLocation();
   return (
-    <div className="p-4  border-1 rounded-md mt-5 border-gray-300 w-full">
+    <div className="p-4 bg-gray-50 ">
       <h1>studySync &gt; {pathname}</h1>
     </div>
   );

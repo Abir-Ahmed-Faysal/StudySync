@@ -2,7 +2,7 @@ import React from "react";
 
 const Sidebar = () => {
   return (
-    <div className="w-64 h-screen rounded-md">
+    <div className="w-64 hidden lg:block  h-fitrounded-md">
       {/* Menu Section */}
       <div className="bg-gray-100 rounded-md p-4">
         <div className="mb-4">
