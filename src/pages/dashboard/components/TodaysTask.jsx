@@ -16,8 +16,6 @@ const TodaysTask = () => {
         {/* This is end */}
         <p>Today 10.50PM </p>
       </div>
-
-      <div className="flex-end"></div>
     </div>
   );
 };
