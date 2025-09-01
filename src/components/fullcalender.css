@@ -10,9 +10,9 @@
 }
 
 /* Remove default border */
-.fc-daygrid-day {
+/* .fc-daygrid-day {
   border: none !important;
-}
+} */
 
 /* Remove header borders */
 .fc-scrollgrid, 

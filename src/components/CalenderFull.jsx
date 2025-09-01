@@ -1,192 +1,145 @@
 // Calendar.jsx
-import React, { useState, useMemo, useRef, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "../components/calender.css";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import listPlugin from "@fullcalendar/list";
-import multiMonthPlugin from "@fullcalendar/multimonth";
 import interactionPlugin from "@fullcalendar/interaction";
-import { Search } from "lucide-react";
+import timeGridPlugin from "@fullcalendar/timegrid";
 
 const CalendarFull = () => {
-  const [searchVisible, setSearchVisible] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [currentView, setCurrentView] = useState("dayGridMonth");
-  const [jumpDate, setJumpDate] = useState("");
-
   const calendarRef = useRef(null);
+  const [title, setTitle] = useState("");
+  const [currentView, setCurrentView] = useState("dayGridMonth");
 
   const events = [
     { title: "Play", subject: "Math", start: "2025-08-24", end: "2025-08-31" },
-    { title: "Play", subject: "Bangla", start: "2025-09-25", end: "2025-10-01" },
+    {
+      title: "Play",
+      subject: "Bangla",
+      start: "2025-09-25",
+      end: "2025-10-01",
+    },
     { title: "Exam", subject: "English", start: "2025-09-10" },
   ];
 
-  // Filter events by search
-  const filteredEvents = useMemo(() => {
-    if (!searchQuery) return events;
-    return events.filter(
-      (e) =>
-        e.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (e.subject && e.subject.toLowerCase().includes(searchQuery.toLowerCase()))
-    );
-  }, [searchQuery, events]);
+  const updateTitle = () => {
+    const api = calendarRef.current?.getApi();
+    if (api) setTitle(api.view.title);
+  };
 
-  // Switch to Schedule view when searching
   useEffect(() => {
-    if (searchQuery && calendarRef.current) {
-      const api = calendarRef.current.getApi();
-      api.changeView("listMonth");
-      setCurrentView("listMonth");
-      if (filteredEvents.length > 0) api.gotoDate(filteredEvents[0].start);
-    }
-  }, [searchQuery, filteredEvents]);
+    updateTitle();
+  }, []);
 
-  // Event class names (highlight search)
-  const eventClassNames = (arg) => {
-    const subject = arg.event.extendedProps.subject || "";
-    const title = arg.event.title || "";
-    let classes = [];
-    if (subject === "Math") classes.push("math-event");
-    if (subject === "Bangla") classes.push("bangla-event");
-    if (
-      searchQuery &&
-      (title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        subject.toLowerCase().includes(searchQuery.toLowerCase()))
-    )
-      classes.push("highlight-event");
-    return classes;
+  const handlePrev = () => {
+    const api = calendarRef.current.getApi();
+    api.prev();
+    updateTitle();
   };
 
-  // Views
-  const views = [
-    { key: "dayGridMonth", label: "Month" },
-    { key: "dayGridWeek", label: "Week" },
-    { key: "dayGridDay", label: "Day" },
-    { key: "multiMonthYear", label: "Year" },
-    { key: "listMonth", label: "Schedule" },
-  ];
-
-  const handleViewChange = (viewKey) => {
-    setCurrentView(viewKey);
-    if (calendarRef.current) calendarRef.current.getApi().changeView(viewKey);
+  const handleNext = () => {
+    const api = calendarRef.current.getApi();
+    api.next();
+    updateTitle();
   };
 
-  const handlePrev = () => calendarRef.current.getApi().prev();
-  const handleNext = () => calendarRef.current.getApi().next();
-  const handleToday = () => calendarRef.current.getApi().today();
-  const handleJump = () => {
-    if (jumpDate) calendarRef.current.getApi().gotoDate(jumpDate);
+  const handleToday = () => {
+    const api = calendarRef.current.getApi();
+    api.today();
+    updateTitle();
+  };
+
+  const handleViewChange = (viewName) => {
+    const api = calendarRef.current.getApi();
+    api.changeView(viewName);
+    setCurrentView(viewName);
+    updateTitle();
   };
 
   return (
-    <div className="calendar-wrapper">
+    <div className="calendar-wrapper h-screen flex flex-col">
       {/* Header */}
-      <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
-        <div className="flex gap-2 items-center">
-          <button onClick={handlePrev} className="px-3 py-1 border rounded hover:bg-gray-100">Prev</button>
-          <button onClick={handleToday} className="px-3 py-1 border rounded hover:bg-gray-100">Today</button>
-          <button onClick={handleNext} className="px-3 py-1 border rounded hover:bg-gray-100">Next</button>
-          <input
-            type="date"
-            value={jumpDate}
-            onChange={(e) => setJumpDate(e.target.value)}
-            className="border rounded px-2 py-1 text-sm"
-          />
-          <button onClick={handleJump} className="px-3 py-1 border rounded hover:bg-gray-100">Go</button>
+      <div className="flex items-center justify-between mb-4 flex-wrap gap-2 px-2">
+        {/* Title */}
+        <h2 className="text-xl font-semibold">{title}</h2>
+
+        {/* Navigation */}
+        <div className="flex items-center gap-2">
+          <button
+            onClick={handlePrev}
+            className="px-3 py-1 border rounded hover:bg-gray-100"
+          >
+            &lt;
+          </button>
+          <button
+            onClick={handleToday}
+            className="px-4 py-1 bg-white rounded-md shadow-sm border font-medium"
+          >
+            Today
+          </button>
+          <button
+            onClick={handleNext}
+            className="px-3 py-1 border rounded hover:bg-gray-100"
+          >
+            &gt;
+          </button>
         </div>
 
-        <div className="flex gap-2 items-center">
-          {views.map((v) => (
-            <button
-              key={v.key}
-              onClick={() => handleViewChange(v.key)}
-              className={`pb-1 ${
-                currentView === v.key
-                  ? "border-b-2 border-blue-500 font-semibold"
-                  : "text-gray-500 hover:text-black"
-              }`}
-              disabled={!!searchQuery && v.key !== "listMonth"}
-            >
-              {v.label}
-            </button>
-          ))}
-
-          {searchVisible && (
-            <input
-              type="text"
-              placeholder="Search events..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="border rounded px-2 py-1 text-sm"
-              autoFocus
-            />
-          )}
+        {/* View Switcher */}
+        <div className="flex gap-2">
           <button
-            onClick={() => setSearchVisible(!searchVisible)}
-            className="p-2 border rounded-full hover:bg-gray-100"
+            onClick={() => handleViewChange("dayGridMonth")}
+            className={`px-3 py-1 border rounded ${
+              currentView === "dayGridMonth"
+                ? "bg-blue-500 text-white"
+                : "hover:bg-gray-100"
+            }`}
           >
-            <Search size={16} />
+            Month
+          </button>
+          <button
+            onClick={() => handleViewChange("timeGridWeek")}
+            className={`px-3 py-1  rounded ${
+              currentView === "timeGridWeek"
+                ? "bg-blue-500 text-white"
+                : "hover:bg-gray-100"
+            }`}
+          >
+            Week
+          </button>
+          <button
+            onClick={() => handleViewChange("timeGridDay")}
+            className={`px-3 py-1  rounded ${
+              currentView === "timeGridDay"
+                ? "bg-blue-500 text-white"
+                : "hover:bg-gray-100"
+            }`}
+          >
+            Day
           </button>
         </div>
       </div>
 
       {/* Calendar */}
-      <FullCalendar
-        ref={calendarRef}
-        plugins={[dayGridPlugin, listPlugin, multiMonthPlugin, interactionPlugin]}
-        initialView={currentView}
-        events={filteredEvents}
-        headerToolbar={false}
-        eventContent={(eventInfo) => (
-          <div>
-            <b>{eventInfo.event.title}</b>{" "}
-            <span className="text-xs text-gray-600">
-              ({eventInfo.event.extendedProps.subject || ""})
-            </span>
-          </div>
-        )}
-        eventClassNames={eventClassNames}
-        dayCellClassNames={(arg) => {
-          const today = new Date();
-          today.setHours(0, 0, 0, 0);
-
-          const cellDate = new Date(arg.date);
-          cellDate.setHours(0, 0, 0, 0);
-
-          const classes = [];
-
-          // Highlight today
-          if (cellDate.getTime() === today.getTime()) {
-            classes.push("today-cell");
-          }
-
-          // Highlight cells with events
-          const hasEvent = filteredEvents.some((event) => {
-            const start = new Date(event.start);
-            let end = event.end ? new Date(event.end) : start;
-            start.setHours(0, 0, 0, 0);
-            end.setHours(23, 59, 59, 999);
-            return cellDate >= start && cellDate <= end;
-          });
-
-          if (hasEvent) classes.push("event-day");
-
-          return classes;
-        }}
-      />
-
-      {/* Footer */}
-      <div className="mt-4 p-3 bg-gray-50 rounded-md border">
-        {filteredEvents.length > 0 ? (
-          <p>
-            ✅ Showing{" "}
-            <span className="text-red-600 font-bold">{filteredEvents.length}</span>{" "}
-            event(s){searchQuery ? " (search results)" : ""}.
-          </p>
-        ) : (
-          <p> No events found.</p>
-        )}
+      <div className="flex-1">
+        <FullCalendar
+          ref={calendarRef}
+          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+          initialView={currentView}
+          height="100%"
+          contentHeight="100%"
+          expandRows={true}
+          events={events}
+          headerToolbar={false}
+          eventContent={(eventInfo) => (
+            <div>
+              <b>{eventInfo.event.title}</b>{" "}
+              <span className="text-xs text-gray-600">
+                ({eventInfo.event.extendedProps.subject || ""})
+              </span>
+            </div>
+          )}
+        />
       </div>
     </div>
   );
