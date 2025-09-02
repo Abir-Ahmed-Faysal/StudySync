@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
+import { useNavigate} from "react-router";
 
 const Navbar = ({ logo }) => {
   const [currentTime, setCurrentTime] = useState("");
   const [currentDate, setCurrentDate] = useState("");
+  const navigate=useNavigate()
 
   useEffect(() => {
     const updateTimeAndDate = () => {
@@ -29,6 +31,13 @@ const Navbar = ({ logo }) => {
     return () => clearInterval(interval);
   }, []);
 
+
+
+
+  const handleClick = () => {
+navigate('/profile')
+  }
+
   return (
     <div className="flex p-4  items-center justify-between">
       <div>
@@ -46,7 +55,7 @@ const Navbar = ({ logo }) => {
         </p>
       </div>
       {!logo && (
-        <img
+        <img onClick={handleClick}
           className="max-h-20 max-w-20"
           src={
             logo ||

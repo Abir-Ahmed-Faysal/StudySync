@@ -3,8 +3,12 @@ import Event from "./components/Event";
 import TodaysTask from "./components/TodaysTask";
 import UpcomingTask from "./components/UpcomingTask";
 import PomodoroClock from "./components/PromodroClock";
+import { useNavigate } from "react-router";
 
 const Dashboard = () => {
+
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen bg-gray-100 ">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -44,7 +48,10 @@ const Dashboard = () => {
 
           {/* Assignment */}
           <div className="bg-white rounded-2xl shadow-md p-6">
-            <h3 className="text-lg font-semibold mb-2">Upcoming Assignment</h3>
+            <h3 onClick={()=>navigate("/assignment")} className="text-lg font-semibold mb-2">
+              Upcoming Assignment{" "}
+            
+            </h3>
             <p className="text-gray-500">No Assignment today</p>
           </div>
 

@@ -2,6 +2,8 @@ import { createBrowserRouter } from "react-router";
 import Layout from "../layout/Layout";
 import Dashboard from "../pages/dashboard/Dashboard";
 import CalendarFull from "../components/CalenderFull";
+import profile from "../pages/profile/profile";
+import Exams from "../pages/exams/Exams";
 
 export const router = createBrowserRouter([
   {
@@ -9,7 +11,9 @@ export const router = createBrowserRouter([
     Component: Layout,
     children: [
       { index: true, Component: Dashboard },
-      { path: "/calender", Component: CalendarFull },
+      { path: "/calendar", Component: CalendarFull },
+      { path: "/profile", Component: profile },
+      { path: "/Exams", Component: Exams },
     ],
   },
 ]);
