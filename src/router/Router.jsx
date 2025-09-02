@@ -4,6 +4,7 @@ import Dashboard from "../pages/dashboard/Dashboard";
 import CalendarFull from "../components/CalenderFull";
 import profile from "../pages/profile/profile";
 import Exams from "../pages/exams/Exams";
+import Tasks from "../pages/Tasks/Tasks";
 
 export const router = createBrowserRouter([
   {
@@ -13,7 +14,8 @@ export const router = createBrowserRouter([
       { index: true, Component: Dashboard },
       { path: "/calendar", Component: CalendarFull },
       { path: "/profile", Component: profile },
-      { path: "/Exams", Component: Exams },
+      { path: "/activities/exams", Component: Exams },
+      { path: "/activities/tasks", Component: Tasks },
     ],
   },
 ]);

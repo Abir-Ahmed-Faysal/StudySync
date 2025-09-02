@@ -1,6 +1,5 @@
 @import "tailwindcss";
 @plugin "daisyui";
+@plugin "tailwind-scrollbar-hide";
 
-a.complete {
-  background-color: green;
-}
+
