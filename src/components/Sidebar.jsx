@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, useLocation } from "react-router"  
+import { NavLink, useLocation } from "react-router";
 
 const SubMenu = ({ items, isOpen }) => {
   if (!isOpen) return null;
@@ -35,6 +35,8 @@ const Sidebar = () => {
         { SubName: "Exams", path: "/activities/exams" },
       ],
     },
+    { name: "Notes", path: "/notes" },
+    { name: "Budget", path: "/budget" },
     { name: "Settings", path: "/settings" },
     { name: "Logout", path: "/logout" },
   ];
@@ -42,7 +44,6 @@ const Sidebar = () => {
   const location = useLocation();
   const [openMenu, setOpenMenu] = useState(null);
 
-  // Auto expand Activities submenu when on /activities
   useEffect(() => {
     if (location.pathname.startsWith("/activities")) {
       setOpenMenu(2);

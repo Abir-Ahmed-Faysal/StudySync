@@ -5,6 +5,7 @@ import CalendarFull from "../components/CalenderFull";
 import profile from "../pages/profile/profile";
 import Exams from "../pages/exams/Exams";
 import Tasks from "../pages/Tasks/Tasks";
+import Budget from "../pages/budget/budget";
 
 export const router = createBrowserRouter([
   {
@@ -16,6 +17,7 @@ export const router = createBrowserRouter([
       { path: "/profile", Component: profile },
       { path: "/activities/exams", Component: Exams },
       { path: "/activities/tasks", Component: Tasks },
+      { path: "/budget", Component: Budget },
     ],
   },
 ]);
