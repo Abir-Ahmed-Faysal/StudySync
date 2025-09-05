@@ -35,6 +35,7 @@ const Sidebar = () => {
         { SubName: "Exams", path: "/activities/exams" },
       ],
     },
+    { name: "Question", path: "/question" },
     { name: "Notes", path: "/notes" },
     { name: "Budget", path: "/budget" },
     { name: "Settings", path: "/settings" },
