@@ -7,6 +7,7 @@ import Exams from "../pages/exams/Exams";
 import Tasks from "../pages/Tasks/Tasks";
 import Budget from "../pages/budget/budget";
 import QAGenerator from "../pages/QAGenerator/QAGenerator";
+import CreateQuestionForm from "../pages/QAGenerator/CreateQ";
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ export const router = createBrowserRouter([
       { path: "/activities/tasks", Component: Tasks },
       { path: "/budget", Component: Budget },
       { path: "/question", Component: QAGenerator },
+      { path: "/Createq", Component: CreateQuestionForm },
     ],
   },
 ]);
